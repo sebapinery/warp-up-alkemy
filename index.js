@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(morgan("tiny"));
+app.use(morgan("dev"));
 
 app.use("/api/posts", Controller);
 

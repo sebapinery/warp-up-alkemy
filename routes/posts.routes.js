@@ -6,14 +6,17 @@ import {
   deletePostController,
 } from "../controllers/posts.controller";
 
-import { postValidations } from "../middlewares/bodyValidator.middleware";
+import {
+  postValidations,
+  urlImageValidator,
+} from "../middlewares/bodyValidator.middleware";
 
 const router = Router();
 
 router.get("/", getPostController);
 router.get("/:id", getPostController);
 
-router.post("/", postValidations, createPostController);
+router.post("/", postValidations, urlImageValidator, createPostController);
 
 router.patch("/:id", editPostController);
 

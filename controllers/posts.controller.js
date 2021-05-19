@@ -25,14 +25,16 @@ export const getPostController = async ({ params }, res) => {
 
 export const createPostController = async (req, res) => {
   const errors = validationResult(req);
-  if (!errors.isEmpty()) res.json({ errors: errors.array() });
-
-  const categoryExist = await checkCategory(req.body.CategoryId);
-  if (!categoryExist) {
-    res.json({ msg: `Category ${req.body.CategoryId} does not exist` });
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
   } else {
-    const newPost = await createNewPost(req.body);
-    return res.json(newPost);
+    const categoryExist = await checkCategory(req.body.CategoryId);
+    if (!categoryExist) {
+      res.json({ msg: `Category ${req.body.CategoryId} does not exist` });
+    } else {
+      const newPost = await createNewPost(req.body);
+      return res.json(newPost);
+    }
   }
 };
 
