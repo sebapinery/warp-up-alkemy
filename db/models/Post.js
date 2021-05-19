@@ -7,7 +7,6 @@ Post.init(
     title: DataTypes.STRING,
     content: DataTypes.TEXT,
     image: DataTypes.STRING,
-    category: DataTypes.STRING,
   },
   {
     sequelize,

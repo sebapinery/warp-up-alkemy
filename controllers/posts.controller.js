@@ -4,12 +4,17 @@ import {
   getSinglePost,
   editPost,
   deletePost,
+  checkCategory,
 } from "../db/repository";
 
 export const getPostController = async ({ params }, res) => {
   if (params.id) {
     const foundPost = await getSinglePost(params.id);
-    return res.json(foundPost);
+    if (!foundPost) {
+      res.json({ msg: "Post does not exist" });
+    } else {
+      return res.json(foundPost);
+    }
   } else {
     const allPosts = await getAllPosts();
     return res.json(allPosts);
@@ -17,8 +22,13 @@ export const getPostController = async ({ params }, res) => {
 };
 
 export const createPostController = async (req, res) => {
-  const newPost = await createNewPost(req.body);
-  return res.json(newPost);
+  const categoryExist = await checkCategory(req.body.CategoryId);
+  if (!categoryExist) {
+    res.json({ msg: "Category does not exist" });
+  } else {
+    const newPost = await createNewPost(req.body);
+    return res.json(newPost);
+  }
 };
 
 export const editPostController = async ({ params, body }, res) => {

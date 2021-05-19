@@ -1,18 +1,29 @@
 const sequelize = require("./db/db.config.js");
 const Post = require("./db/models/Post");
+const Category = require("./db/models/Category");
+require("./db/asociations");
 
 const posts = [
   {
     title: "titulo 1",
     content: "Lorem Ipsum dolor",
     image: "http://www.imagen.com/image.jpg",
-    category: "Categoria 1",
+    CategoryId: 1,
   },
   {
     title: "titulo 2",
     content: "Lorem Ipsum dolor",
     image: "http://www.imagen.com/image.jpg",
-    category: "Categoria 2",
+    CategoryId: 2,
+  },
+];
+
+const category = [
+  {
+    name: "Category 1",
+  },
+  {
+    name: "Category 2",
   },
 ];
 
@@ -22,7 +33,13 @@ sequelize
     console.log("DB is connected");
   })
   .then(() => {
+    category.forEach((category) => {
+      Category.create(category);
+    });
+  })
+  .then(() => {
     posts.forEach((post) => {
       Post.create(post);
     });
-  });
+  })
+  .catch((error) => console.log(error));
