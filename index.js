@@ -1,6 +1,6 @@
 import express from "express";
 import morgan from "morgan";
-import Controller from "./Routes/posts.routes.js";
+import Controller from "./routes/posts.routes.js";
 import sequelize from "./db/db.config";
 require("./db/asociations");
 
