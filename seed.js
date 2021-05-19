@@ -8,6 +8,12 @@ const posts = [
     image: "http://www.imagen.com/image.jpg",
     category: "Categoria 1",
   },
+  {
+    title: "titulo 2",
+    content: "Lorem Ipsum dolor",
+    image: "http://www.imagen.com/image.jpg",
+    category: "Categoria 2",
+  },
 ];
 
 sequelize

@@ -1,22 +1,16 @@
-import { Router } from "express";
-import { getAllPosts } from "../db/repository";
+import { getAllPosts, postNewPost, getSinglePost } from "../db/repository";
 
-const router = Router();
+export const getPostController = async ({ params }, res) => {
+  if (params.id) {
+    const foundPost = await getSinglePost(params.id);
+    return res.json(foundPost);
+  } else {
+    const allPosts = await getAllPosts();
+    return res.json(allPosts);
+  }
+};
 
-router.get("/", async (req, res) => {
-  const allPosts = await getAllPosts();
-  res.json(allPosts);
-});
-
-router.post("/", (req, res) => {
-  res.json("POST A POST");
-});
-
-router.patch("/", (req, res) => {
-  res.json("PATCH A POST");
-});
-
-router.delete("/", (req, res) => {
-  res.json("DELETE A POST");
-});
-export default router;
+export const postPostController = async (req, res) => {
+  const newPost = await postNewPost(req.body);
+  return res.json(newPost);
+};

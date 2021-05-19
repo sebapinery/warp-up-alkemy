@@ -1,9 +1,12 @@
 import express from "express";
 import morgan from "morgan";
-import Controller from "./controllers/posts.controller.js";
+import Controller from "./Routes/posts.routes.js";
 import sequelize from "./db/db.config";
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.use(morgan("tiny"));
 
 app.use("/api/posts", Controller);
