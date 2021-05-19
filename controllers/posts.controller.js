@@ -1,9 +1,11 @@
 import { Router } from "express";
+import { getAllPosts } from "../db/repository";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.json("GET ALL POSTS");
+router.get("/", async (req, res) => {
+  const allPosts = await getAllPosts();
+  res.json(allPosts);
 });
 
 router.post("/", (req, res) => {
