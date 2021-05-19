@@ -1,7 +1,9 @@
 import { Router } from "express";
 import {
   getPostController,
-  postPostController,
+  createPostController,
+  editPostController,
+  deletePostController,
 } from "../controllers/posts.controller";
 
 const router = Router();
@@ -9,13 +11,9 @@ const router = Router();
 router.get("/", getPostController);
 router.get("/:id", getPostController);
 
-router.post("/", postPostController);
+router.post("/", createPostController);
 
-router.patch("/", (req, res) => {
-  res.json("PATCH A POST");
-});
+router.patch("/:id", editPostController);
 
-router.delete("/", (req, res) => {
-  res.json("DELETE A POST");
-});
+router.delete("/:id", deletePostController);
 export default router;
