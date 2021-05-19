@@ -1,6 +1,6 @@
 import { check, body, validationResult } from "express-validator";
 
-export const validationPostList = [
+export const postValidations = [
   body("title", "New post must have a title").not().isEmpty(),
   body("content", "New post must have a content").not().isEmpty(),
   body("image", "Image must be a valid link").isURL(),

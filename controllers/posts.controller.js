@@ -40,7 +40,7 @@ export const editPostController = async ({ params, body }, res) => {
   const foundPost = await getSinglePost(params.id);
 
   if (!foundPost) {
-    res.json("Post does not exist");
+    res.json({ error: `Post ID: ${params.id} does not exist` });
   } else {
     await editPost(params.id, body);
     const editedPost = await getSinglePost(foundPost.id);
@@ -51,9 +51,9 @@ export const editPostController = async ({ params, body }, res) => {
 export const deletePostController = async ({ params }, res) => {
   const foundPost = await getSinglePost(params.id);
   if (!foundPost) {
-    res.json("Post does not exist");
+    res.json({ error: `Post ID: ${params.id} does not exist` });
   } else {
     await deletePost(params.id);
-    res.json({ msg: `Post id: ${params.id} was deleted` });
+    res.json({ msg: `Post ID: ${params.id} was deleted` });
   }
 };
