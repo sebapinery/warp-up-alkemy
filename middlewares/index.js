@@ -3,8 +3,8 @@ import { check, body } from "express-validator";
 export const postValidations = [
   check("title", "New post must have a title").not().isEmpty(),
   check("content", "New post must have a content").not().isEmpty(),
-  body("image", "New post must have a PNG or JPG image URL").not().isEmpty(),
-  body("image", "Image must be a valid link").not().isURL(),
+  check("image", "New post must have a PNG or JPG image URL").isEmpty(),
+  body("image", "Image must be a valid link").isURL(),
   check("CategoryId", "New post must have CategoryId").not().isEmpty(),
 ];
 
