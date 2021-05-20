@@ -7,8 +7,8 @@ export const postValidations = [
   body("CategoryId", "New post must have CategoryId").not().isEmpty(),
 ];
 
-export const urlImageValidator = (req, res, next) => {
-  const url = req.body.image;
+export const urlImageValidator = ({ body }, res, next) => {
+  const url = body.image;
   const extension = url.split(/[#?]/)[0].split(".").pop().trim();
 
   if (extension === "jpg") {
@@ -16,10 +16,8 @@ export const urlImageValidator = (req, res, next) => {
   } else if (extension === "png") {
     next();
   } else {
-    res
-      .status(422)
-      .json({
-        error: `${extension} is not a valid image extension, please use a JPG or PNG image`,
-      });
+    res.status(422).json({
+      error: `${extension} is not a valid image extension, please use a JPG or PNG image`,
+    });
   }
 };
