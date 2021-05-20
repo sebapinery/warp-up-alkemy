@@ -11,11 +11,15 @@ export const urlImageValidator = (req, res, next) => {
   const url = req.body.image;
   const extension = url.split(/[#?]/)[0].split(".").pop().trim();
 
-  if (extension !== "jpg") {
+  if (extension === "jpg") {
+    next();
+  } else if (extension === "png") {
+    next();
+  } else {
     res
       .status(422)
-      .json({ error: "Invalid image URL, please use a valid JPG image URL" });
-  } else {
-    next();
+      .json({
+        error: `${extension} is not a valid image extension, please use a JPG or PNG image`,
+      });
   }
 };

@@ -5,6 +5,7 @@ export const getAllPosts = async () =>
   await Post.findAll({
     attributes: ["id", "title", "image", "createdAt"],
     include: { model: Category, attributes: ["name"] },
+    order: [["createdAt", "DESC"]],
   });
 
 export const getSinglePost = async (id) =>
