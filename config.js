@@ -1,10 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 module.exports = {
   database: {
-    username: "root",
-    password: "seba2801",
-    database: "warm-up-alkemy",
-    host: "localhost",
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    host: process.env.DB_HOST,
   },
-  secretFrase: "aklemy",
-  port: 3000,
 };
