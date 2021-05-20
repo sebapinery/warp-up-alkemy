@@ -1,10 +1,16 @@
 const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../db.config.js");
+const sequelize = require("../config/db.config");
 
 class Post extends Model {}
 Post.init(
   {
-    title: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Title must not be empty" },
+      },
+    },
     content: DataTypes.TEXT,
     image: DataTypes.STRING,
   },

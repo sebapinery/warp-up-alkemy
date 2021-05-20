@@ -3,9 +3,9 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 
 import PostController from "./routes/posts.routes.js";
-import sequelize from "./db/db.config";
+import sequelize from "./db/config/db.config";
 
-require("./db/asociations");
+require("./db/config/asociations");
 
 const app = express();
 dotenv.config();

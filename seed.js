@@ -1,7 +1,7 @@
-const sequelize = require("./db/db.config.js");
+const sequelize = require("./db/config/db.config");
 const Post = require("./db/models/Post");
 const Category = require("./db/models/Category");
-require("./db/asociations");
+require("./db/config/asociations");
 
 const posts = [
   {
