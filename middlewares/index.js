@@ -15,14 +15,14 @@ export const urlImageValidator = ({ body }, res, next) => {
   } else {
     const extension = url.split(/[#?]/)[0].split(".").pop().trim();
 
-    const validImageExtensions = {
-      jpg: next(),
-      png: next(),
-    };
-
-    return (
-      validImageExtensions[extension] ||
-      res.status(422).json({ error: "Invalid image formart" })
-    );
+    if (extension === "jpg") {
+      next();
+    } else if (extension === "png") {
+      next();
+    } else {
+      res.status(422).json({
+        error: `${extension} is not a valid image extension, please use a JPG or PNG image`,
+      });
+    }
   }
 };
