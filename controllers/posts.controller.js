@@ -14,7 +14,7 @@ export const getPostController = async ({ params }, res) => {
     if (params.id) {
       const foundPost = await getSinglePost(params.id);
       if (!foundPost) {
-        res.json({ msg: "Post does not exist" });
+        res.status(404).json({ error: "Post does not exist" });
       } else {
         return res.json(foundPost);
       }
@@ -23,7 +23,7 @@ export const getPostController = async ({ params }, res) => {
       return res.json(allPosts);
     }
   } catch (error) {
-    res.status(400).json({ msg: "Error getting posts", error });
+    res.status(400).json({ error: "Error getting posts", error });
   }
 };
 
@@ -35,14 +35,16 @@ export const createPostController = async (req, res) => {
     } else {
       const categoryExist = await checkCategory(req.body.CategoryId);
       if (!categoryExist) {
-        res.json({ msg: `Category ${req.body.CategoryId} does not exist` });
+        res
+          .status(422)
+          .json({ error: `Category ${req.body.CategoryId} does not exist` });
       } else {
         const newPost = await createNewPost(req.body);
         return res.json(newPost);
       }
     }
   } catch (error) {
-    res.json({ msg: "Error creating new Post", error });
+    res.status(400).json({ error: "Error creating new Post", error });
   }
 };
 
@@ -51,14 +53,16 @@ export const editPostController = async ({ params, body }, res) => {
     const foundPost = await getSinglePost(params.id);
 
     if (!foundPost) {
-      res.json({ error: `Post ID: ${params.id} does not exist` });
+      res.status(404).json({ error: `Post ID: ${params.id} does not exist` });
     } else {
       await editPost(params.id, body);
       const editedPost = await getSinglePost(foundPost.id);
       res.json(editedPost);
     }
   } catch (error) {
-    res.status(400).json({ msg: "Error on editPostController", error: error });
+    res
+      .status(400)
+      .json({ error: "Error on editPostController", error: error });
   }
 };
 
@@ -66,7 +70,7 @@ export const deletePostController = async ({ params }, res) => {
   try {
     const foundPost = await getSinglePost(params.id);
     if (!foundPost) {
-      res.json({ error: `Post ID: ${params.id} does not exist` });
+      res.status(404).json({ error: `Post ID: ${params.id} does not exist` });
     } else {
       await deletePost(params.id);
       res.json({ msg: `Post ID: ${params.id} was deleted` });
