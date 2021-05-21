@@ -11,7 +11,8 @@ export const postValidations = [
 export const urlImageValidator = ({ body }, res, next) => {
   const url = body.image;
   if (!url) {
-    res.status(400).json({ error: "Image field is empty" });
+    // res.status(400).json({ error: "Image field is empty" });
+    next();
   } else {
     const extension = url.split(/[#?]/)[0].split(".").pop().trim();
 
