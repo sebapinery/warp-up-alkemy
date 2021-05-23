@@ -15,9 +15,7 @@ export const urlImageValidator = ({ body }, res, next) => {
   } else {
     const extension = url.split(/[#?]/)[0].split(".").pop().trim();
 
-    if (extension === "jpg") {
-      next();
-    } else if (extension === "png") {
+    if (extension === "jpg" || extension === "png") {
       next();
     } else {
       res.status(422).json({
