@@ -27,7 +27,12 @@ router.post(
   checkCategoryMiddleware,
   createPostController
 );
-router.patch("/:id", urlImageValidator, editPostController);
+router.patch(
+  "/:id",
+  urlImageValidator,
+  checkCategoryMiddleware,
+  editPostController
+);
 router.delete("/:id", deletePostController);
 
 export default router;

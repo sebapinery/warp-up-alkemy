@@ -8,7 +8,7 @@ import {
   deletePost,
 } from "../db/repository/post.repository";
 
-export const getPostController = async ({ params }, res) => {
+export const getPostController = async (_, res) => {
   try {
     const allPosts = await getAllPosts();
     return res.json(allPosts);
@@ -48,7 +48,7 @@ export const editPostController = async ({ params, body }, res) => {
       res.status(404).json({ error: `Post ID: ${params.id} does not exist` });
     } else {
       await editPost(params.id, body);
-      const editedPost = await getSinglePost(foundPost.id);
+      const editedPost = await getSinglePost(params.id);
       res.json(editedPost);
     }
   } catch (error) {

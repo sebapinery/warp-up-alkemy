@@ -31,7 +31,7 @@ export const checkCategoryMiddleware = async ({ body }, res, next) => {
   if (!categoryExist) {
     res
       .status(422)
-      .json({ error: `Category ${req.body.CategoryId} does not exist` });
+      .json({ error: `Category ${body.CategoryId} does not exist` });
   } else {
     next();
   }

@@ -4,6 +4,12 @@ const sequelize = require("../config/db.config");
 class Post extends Model {}
 Post.init(
   {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      notNull: true,
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
