@@ -25,6 +25,11 @@ Post.init(
         notNull: { msg: "Image must not be empty" },
       },
     },
+    CategoryId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: { notNull: { msg: "Category must not be empty" } },
+    },
   },
   {
     sequelize,

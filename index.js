@@ -2,7 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
 
-import PostController from "./routes/posts.routes.js";
+import PostRouter from "./routes/posts.routes.js";
 import sequelize from "./db/config/db.config";
 
 require("./db/config/asociations");
@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(morgan("dev"));
 
-app.use("/api/posts", PostController);
+app.use("/api/posts", PostRouter);
 
 const PORT = process.env.PORT || 3000;
 

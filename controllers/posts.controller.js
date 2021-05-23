@@ -6,24 +6,23 @@ import {
   getSinglePost,
   editPost,
   deletePost,
-  checkCategory,
 } from "../db/repository/post.repository";
 
 export const getPostController = async ({ params }, res) => {
   try {
-    if (params.id) {
-      const foundPost = await getSinglePost(params.id);
-      if (!foundPost) {
-        res.status(404).json({ error: "Post does not exist" });
-      } else {
-        return res.json(foundPost);
-      }
-    } else {
-      const allPosts = await getAllPosts();
-      return res.json(allPosts);
-    }
+    const allPosts = await getAllPosts();
+    return res.json(allPosts);
   } catch (error) {
-    res.status(400).json({ error: "Error getting posts", error });
+    return res.status(500).json({ error: "Error getting posts", error });
+  }
+};
+
+export const getSinglePostController = async ({ params }, res) => {
+  const foundPost = await getSinglePost(params.id);
+  if (!foundPost) {
+    res.status(404).json({ error: "Post does not exist" });
+  } else {
+    return res.json(foundPost);
   }
 };
 
@@ -33,18 +32,11 @@ export const createPostController = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     } else {
-      const categoryExist = await checkCategory(req.body.CategoryId);
-      if (!categoryExist) {
-        res
-          .status(422)
-          .json({ error: `Category ${req.body.CategoryId} does not exist` });
-      } else {
-        const newPost = await createNewPost(req.body);
-        return res.json(newPost);
-      }
+      const newPost = await createNewPost(req.body);
+      return res.status(201).json(newPost);
     }
   } catch (error) {
-    res.status(400).json({ error: "Error creating new Post", error });
+    res.status(500).json({ error: "Error creating new Post", error });
   }
 };
 
@@ -61,7 +53,7 @@ export const editPostController = async ({ params, body }, res) => {
     }
   } catch (error) {
     res
-      .status(400)
+      .status(500)
       .json({ error: "Error on editPostController", error: error });
   }
 };
@@ -76,6 +68,6 @@ export const deletePostController = async ({ params }, res) => {
       res.json({ msg: `Post ID: ${params.id} was deleted` });
     }
   } catch (error) {
-    res.status(400).json({ msg: "Error on deletePostController", error });
+    res.status(500).json({ msg: "Error on deletePostController", error });
   }
 };

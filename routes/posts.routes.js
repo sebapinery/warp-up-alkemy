@@ -6,16 +6,27 @@ import {
   createPostController,
   editPostController,
   deletePostController,
+  getSinglePostController,
 } from "../controllers/posts.controller";
 
 // MIDDLEWARES
-import { postValidations, urlImageValidator } from "../middlewares";
+import {
+  postValidations,
+  urlImageValidator,
+  checkCategoryMiddleware,
+} from "../middlewares";
 
 const router = Router();
 
 router.get("/", getPostController);
-router.get("/:id", getPostController);
-router.post("/", postValidations, urlImageValidator, createPostController);
+router.get("/:id", getSinglePostController);
+router.post(
+  "/",
+  postValidations,
+  urlImageValidator,
+  checkCategoryMiddleware,
+  createPostController
+);
 router.patch("/:id", urlImageValidator, editPostController);
 router.delete("/:id", deletePostController);
 
